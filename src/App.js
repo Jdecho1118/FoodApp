@@ -3,12 +3,7 @@ import './App.css';
 import Header from './components/Header';
 import Body from './components/Body';
 import Footer from './components/Footer';
-import Searchbar from './components/Searchbar';
-import Filter from './components/Filter';
-import Cardcontainer from './components/Cardcontainer';
-import Restaurantcard from './components/Restaurantcard';
-import Carousel from './components/Carousel';
-import CarouselItem from './components/CarouselItem';
+
 
 function App() {
   return (
@@ -29,12 +24,6 @@ function App() {
       </header> */}
       <Header/>
       <Body/>
-      <Searchbar/>
-      <Filter/>
-      <Cardcontainer/>
-      <Carousel/>
-      <CarouselItem/>
-      <Restaurantcard/>
       <Footer/>
     </div>
   );
