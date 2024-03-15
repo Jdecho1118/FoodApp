@@ -4,14 +4,14 @@ const Header = () =>{
   return(
 <nav className="navbar navbar-expand-sm navbar-light logocss">
 <div className="container-fluid justify-content-between">
-<a className="navbar-brand" href="#">
+<a className="navbar-brand" href="/">
       <img src="https://tse1.mm.bing.net/th?id=OIP.eunWl1mn5mCUvP8OZZSyHgHaG_&pid=Api&P=0&h=180" alt="" width="45" height="40"/>
     </a>
   <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
     <span className="navbar-toggler-icon"></span>
   </button>
   <div className="collapse navbar-collapse justify-content-center" id="mynavbar">
-    <ul className="navbar-nav ">
+    <ul className="navbar-nav mx-auto ">
       <li className="nav-item">
         <Link className="nav-link" to="/">Home</Link>
       </li>

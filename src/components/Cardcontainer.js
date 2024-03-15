@@ -1,33 +1,21 @@
-import Restaurantcard from "./Restaurantcard";
-//import data from "../utils/config";
-// import masterData from '../utils/dummyData';
-import Carousel from "./Carousel";
-import { useState } from "react";
-// import { IMG_URL } from "../utils/config";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { RES_URL } from "../utils/config";
+import Restaurantcard from "./Restaurantcard";
+import Carousel from "./Carousel";
+import Title from "./Title";
 import Shimmer from "./Shimmer";
 import Category from "./Category";
 
-const Cardcontainer = () =>{
-  // console.log("restaurantCollection",masterData[0]?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-  // console.log("collection",masterData[0]?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+const Cardcontainer = () => {
   const [restaurant, setRestaurant] = useState([]);
-  // const[count, setCount] = useState(0);
-  const[filterData, setFilterData] = useState([]);
+  const [filterData, setFilterData] = useState([]);
   const [CarouselData, setCarouselData] = useState([]);
+  const[title,setTitle] = useState([]);
+  const[title1,setTitle1]= useState([]);
   const [searchText, setSearchText] = useState("");
   const [masterData, setMasterData] = useState([]);
   const [category, setActiveCategory] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  // const restaurants = masterData[0]?.data?.cards[0]?.card?.card?.imageGridCards?.info;
-  // const[text, setText]= useState("Sample text");
-  // const[number, setNumber ] = useState(0);
-
-
-
-  // const collection= masterData[0]?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
-
 
   const getData = async () => {
     try {
@@ -36,21 +24,22 @@ const Cardcontainer = () =>{
       setRestaurant(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
       setFilterData(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
       setCarouselData(json?.data?.cards[0]?.card?.card?.imageGridCards?.info);
+      setTitle(json?.data.cards[0]?.card?.card?.header.title);
+      setTitle1(json?.data.cards[1]?.card?.card?.header.title);
       setMasterData(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
     } catch (err) {
-      console.log("error", err);
+      console.log("Error fetching data:", err);
       setErrorMessage("There is Some Error, Try again");
     }
-  }
+  };
 
-  
   const handleRating = () => {
     const filterData = masterData.filter(resItem => resItem?.info?.avgRating > 4.5);
     if (restaurant !== masterData && category === "rating") {
       handleReset();
     } else {
       setRestaurant(filterData);
-      setActiveCategory("rating");
+      setActiveCategory("Rating");
     }
   };
 
@@ -59,83 +48,103 @@ const Cardcontainer = () =>{
     if (restaurant !== masterData && category === "deliveryTime") {
       handleReset();
     } else {
-      setActiveCategory("deliveryTime");
+      setActiveCategory("Fastest Delivery");
       setRestaurant(filterData);
     }
   };
 
-const handleCategory = () =>{
-  setActiveCategory("veg");
-  const filterData = masterData.filter(resItem => resItem?.info?.veg);
-  setRestaurant(filterData);
-}
-const handleReset =() =>{
-  setActiveCategory("");
-  setRestaurant(masterData);
-}
+  const handleCategory = () => {
+    setActiveCategory("Pure Veg");
+    const filterData = masterData.filter(resItem => resItem?.info?.veg);
+    setRestaurant(filterData);
+  };
 
-const handleSearchText = (e) => {
-  setSearchText(e.target.value);
-};
-  // const handleCount = () =>{
-  //   setCount(count+1);
-  // }
-  
-  useEffect(()=>{
-    console.log("useEffect called");
-    getData();
-  },[]);
-  
-  console.log("component renderd");
+  const handleReset = () => {
+    setActiveCategory("");
+    setRestaurant(masterData);
+  };
+
+  const handleSearchText = (e) => {
+    setSearchText(e.target.value);
+  };
 
   const searchRestaurant = () => {
-  const searchTextLowerCase = searchText.toLowerCase();
-  const filterData = masterData.filter(
-    (resItem) =>
-      resItem?.info?.name.toLowerCase().includes(searchTextLowerCase) ||
-      (resItem?.info?.id.toString().includes(searchTextLowerCase) && !isNaN(searchText))
-  );
+    const searchTextLowerCase = searchText.toLowerCase();
+    const filterData = masterData.filter(
+      (resItem) =>
+        resItem?.info?.name.toLowerCase().includes(searchTextLowerCase) ||
+        (resItem?.info?.id.toString().includes(searchTextLowerCase) && !isNaN(searchText))
+    );
 
-  if (filterData.length === 0) {
-    setErrorMessage(`No match found for "${searchText}"`);
-  } else {
-    setErrorMessage("");
-  }
+    if (filterData.length === 0) {
+      setErrorMessage(`No match found for "${searchText}"`);
+    } else {
+      setErrorMessage("");
+    }
 
-  setRestaurant(filterData);
-};
-  
+    setRestaurant(filterData);
+  };
 
+  useEffect(() => {
+    console.log("useEffect called");
+    getData();
+  }, []);
 
-    return(
-      <>
-      <div className="container d-flex justify-content-between align-items-center mt-4">
-      <div className=" d-flex gap-2">
-      <input type="text" placeholder="Search for.." value={searchText} onChange={(e) => handleSearchText(e)} />
-      <button className="btn btn-sm btn-success" onClick={searchRestaurant}>Search</button>
-      {/* <button onClick={handleCount}>Increase Count</button>
-      <h1>count is {count}</h1> */}
-      </div>
-      <div className="btn-container">
-        <button className="btn btn-sm btn-secondary mx-1" onClick={handleRating}>Rating 4.5+</button>
-        <button className="btn btn-sm btn-secondary mx-1" onClick={handleDeliveryTime}>Fast Delivery</button>
-        <button className="btn btn-sm btn-secondary mx-1" onClick={handleCategory}>Pure Veg</button>
-        {category && <button className="btn btn-sm btn-secondary mx-1" onClick={handleReset}>Reset</button>}
-      </div>
-      </div>
-      <div className="container pt-4 d-flex imgscroll">
-  {
-    CarouselData.map((card) => {
-      return (
-        <Carousel
-          img={card?.imageId}
-        />
-      )
-    })
-  }
+  console.log("Component rendered");
+
+  return (
+    <>
+      <div className="container text-center mt-4">
+        <div className="d-flex gap-2 justify-content-center ">
+          <input
+            type="text"
+            placeholder="Search for restaurants & food"
+            value={searchText}
+            onChange={(e) => handleSearchText(e)}
+            style={{ width: "700px", height: "50px", boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
+          />
+          <button
+            className="btn btn-sm btn-warning shadow rounded"
+            onClick={searchRestaurant}
+            style={{ width: "100px", fontSize:"20px"}}
+          >
+            Search
+          </button>
+        </div>
+        <div className="container">
+          <Title title={title}/>
+        <div></div>
+        </div>
+
+        <div className="container pt-2 d-flex imgscroll">
+          {CarouselData.map((card, index) => (
+            <Carousel key={index} img={card?.imageId} />
+          ))}
+        </div>
+
+        <div className="d-flex justify-content-between align-items-center mt-4">
+          <Title title={title1}/>
+          <div className="btn-container filterbutton">
+    <button className="btn btn-medium mx-1" onClick={handleRating}>
+        Rating 4.5+
+    </button>
+    <button className="btn btn-medium mx-1" onClick={handleDeliveryTime}>
+        Fast Delivery
+    </button>
+    <button className="btn btn-medium mx-1" onClick={handleCategory}>
+        Pure Veg
+    </button>
+    {category && (
+        <button className="btn btn-medium mx-1" onClick={handleReset}>
+            Reset
+        </button>
+    )}
 </div>
 
-<div className="container d-flex flex-wrap mt-4 gap-4">
+        </div>
+      </div>
+
+      <div className="container d-flex flex-column align-items-center  gap-4">
         {errorMessage ? (
           <div className="alert alert-danger d-flex align-items-center" role="alert">
             <svg
@@ -155,12 +164,16 @@ const handleSearchText = (e) => {
         ) : restaurant.length !== 0 ? (
           <>
             <Category title={category} />
-            {restaurant.map((card, index) => (
-              <Restaurantcard key={card?.info?.id} {...card?.info} />
-            ))}
+            <div className="container d-flex flex-wrap mt-4 gap-4">
+              {restaurant.map((card, index) => (
+                <Restaurantcard key={card?.info?.id} {...card?.info} />
+              ))}
+            </div>
           </>
         ) : (
-          <Shimmer />
+          <div className="container d-flex flex-wrap mt-4 gap-4">
+            <Shimmer />
+          </div>
         )}
       </div>
     </>

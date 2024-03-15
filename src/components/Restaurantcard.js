@@ -1,12 +1,13 @@
 import { IMG_URL } from "../utils/config";
+import { Link } from "react-router-dom";
 
 
-const Restaurantcard = ({cloudinaryImageId ,name ,avgRating ,sla,cuisines,areaName}) =>{
+const Restaurantcard = ({cloudinaryImageId ,name ,avgRating ,sla,cuisines,areaName, id}) =>{
   // console.log("props".props);
   // const {url,name} = props;
 
   return(
-      <div className="custom-card">
+      <Link to={`/menu/${id}`} className="custom-card">
         <div>
           <img src={IMG_URL + cloudinaryImageId}
           alt="resimage" 
@@ -21,7 +22,7 @@ const Restaurantcard = ({cloudinaryImageId ,name ,avgRating ,sla,cuisines,areaNa
         </div>
         <div className="text-secondary cuisine">{cuisines}</div>
         <div className="text-secondary">{areaName}</div>
-      </div>
+      </Link>
     );
 }
 export default Restaurantcard;

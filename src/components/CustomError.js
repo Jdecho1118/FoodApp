@@ -7,7 +7,7 @@ const CustomError = () => {
   console.log("errorDetails", errorDetails);
 
   return (
-    <div className="container m-4">
+    <div className="d-flex flex-column justify-content-center align-items-center" style={{height : "100vh"}}>
     <p>Status: {errorDetails.statusText}</p>
     <p>ErrorCode: {errorDetails.status} !!!</p>
     {errorMessage}

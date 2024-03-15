@@ -4,6 +4,7 @@ import About from "./About";
 import Contact from "./Contact";
 import {createBrowserRouter} from "react-router-dom";
 import CustomError from "./CustomError";
+import Menu from "./Menu";
 
 
 const Approuter =createBrowserRouter([
@@ -26,6 +27,10 @@ const Approuter =createBrowserRouter([
             path : "",
             element : <Body/>,
             
+        },
+        {
+            path : "menu/:resId",
+            element : <Menu/>
         }
     ]
     }

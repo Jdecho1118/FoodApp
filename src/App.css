@@ -1,8 +1,4 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
+/* Reset CSS */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -23,7 +19,6 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
-/* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
 	display: block;
@@ -47,53 +42,117 @@ table {
 	border-spacing: 0;
 }
 
-.logocss{
+.logocss {
 	background-color: #f48734;
 	font-weight: 700;
 	font-size: 20px;
 }
-.custom-card{
-  width: 100% ;
-  max-width: 300px;
-  padding: 20px;
+
+.custom-card {
+	width: 100%;
+	max-width: 300px;
+	padding: 20px;
 }
-.custom-card:hover{
+
+.custom-card:hover {
 	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 	cursor: pointer;
 }
-.custom-card img{
-  width: 100% ;
-  height:230px;
-  border-radius: 5px;
-  object-fit: contain;
 
+.custom-card img {
+	width: 100%;
+	height: auto;
+	border-radius: 5px;
+	object-fit: cover;
 }
+
 .cuisine {
 	display: -webkit-box;
 	overflow-wrap: break-word;
 	-webkit-line-clamp: 1;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
-  }
-  .imgscroll{
-	overflow-x: scroll;
-  }
-  .imgscroll::-webkit-scrollbar {
-    display: none;
+}
+
+.imgscroll {
+	overflow-x: auto;
+}
+
+.imgscroll::-webkit-scrollbar {
+	display: none;
 }
 
 .imgContainer, .nameContainer, .cuisineContainer, .areaContainer, .ratingContainer, .timeContainer {
 	width: 100%;
-	background-color : #9d9d9da4;
-	height: 10px;
-
+	background-color: #9d9d9da4;
+	height: auto;
+	padding: 10px;
+	margin-bottom: 10px;
 }
 
-.imgContainer{
-	height: 150px;
-
+.imgContainer {
+	min-height: 150px;
 }
 
-.ratingContainer, .timeContainer{
+.filterbutton button {
+	border: 2px solid #000;
+	border-radius: 5px;
+	background-color: rgb(250, 250, 250);
+	color: #000;
+	transition: background-color 0.3s, color 0.3s;
+}
+
+.filterbutton button:hover {
+	background-color: orange;
+}
+
+.ratingContainer, .timeContainer {
 	width: 40px;
+}
+
+.thumbnail_container {
+	position: relative;
+	background: rgb(208, 234, 240);
+}
+
+.thumbnail_container button {
+	position: absolute;
+	bottom: -15px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+a {
+	text-decoration: none !important;
+	color: inherit !important;
+}
+
+.desclimit {
+	display: -webkit-box;
+	overflow-wrap: break-word;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.container-sm {
+	width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+	.custom-card {
+		max-width: 100%;
+	}
+	.imgContainer {
+		min-height: auto;
+	}
+	.thumbnail_container button {
+		position: static;
+		transform: none;
+		text-align: center;
+		margin-top: 10px;
+	}
+	.container-sm {
+		width: 90%;
+	}
 }
