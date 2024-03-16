@@ -15,7 +15,7 @@ const Menu = () => {
       const menuData = await fetch(MENU_URL);
       const json = await menuData.json();
       // console.log("menuData", json?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR);
-      setMenuList(json?.data?.cards);
+      setMenuList(json?.data?.cards || []);
     } catch (error) {
       console.log("error", error);
     }
@@ -83,7 +83,7 @@ const Menu = () => {
                   <div className="text-secondary fw-light desclimit">{itemCard?.card?.info?.description}</div>
                 </div>
                 <div className="thumbnail_container">
-                  <img src={IMG_URL + itemCard?.card?.info?.imageId} alt="resimage" style={{ width: "118px", height: "96px", objectFit: "cover" }} />
+                  <img src={IMG_URL + itemCard?.card?.info?.imageId} alt="resimage" />
                   <button className="btn btn-light text-success">ADD</button>
                 </div>
               </div>
@@ -112,7 +112,7 @@ const Menu = () => {
                         />
                       ) : (
                         <img
-                          src="https://st4.depositphotos.com/18657574/22403/v/450/depositphotos_224034930-stock-illustration-food-concept-vector-linear-icon.jpg"
+                          src="https://cdn5.vectorstock.com/i/1000x1000/71/94/cooking-chef-logo-on-white-background-vector-24287194.jpg"
                           alt="noimage" style={{ width: "118px", height: "96px", objectFit: "cover" }}
                         />
                       )}

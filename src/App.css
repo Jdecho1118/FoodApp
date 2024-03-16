@@ -114,6 +114,11 @@ table {
 	position: relative;
 	background: rgb(208, 234, 240);
 }
+.thumbnail_container img {
+	width: 118px;
+	height: 96px; 
+	object-fit: cover;
+}
 
 .thumbnail_container button {
 	position: absolute;
